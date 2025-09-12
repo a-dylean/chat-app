@@ -9,10 +9,14 @@ export const MessageItem = ({ message }: MessageItemProps) => {
   const isAssistant = message.role === "assistant";
   const bg = isAssistant ? "orange.400" : "white";
   const color = isAssistant ? "white" : "black";
+  const selfAlign = isAssistant ? "flex-start" : "flex-end";
 
   return (
     <Box
       maxW="75%"
+      w="fit-content"
+      display="inline-block"
+      alignSelf={selfAlign}
       bg={bg}
       color={color}
       px={3}
