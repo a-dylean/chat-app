@@ -1,17 +1,24 @@
-"use client";
-
-import { useState } from "react";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import { PromptSelector } from "./prompt-selector";
 import { Flex, Button, Input } from "@chakra-ui/react";
 import { type ChatMessage } from "../../app/types";
 
-export const ChatInput = () => {
-    const [messages, setMessages] = useState<ChatMessage[]>([]);
+type ChatInputProps = {
+  messages: ChatMessage[];
+  setMessages: Dispatch<SetStateAction<ChatMessage[]>>;
+};
+
+export const ChatInput = ({ messages, setMessages }: ChatInputProps) => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [templateChoice, setTemplateChoice] = useState("");
+
+  useEffect(() => {
+    setInput(templateChoice);
+  }, [templateChoice]);
+
   const handleSend = async () => {
-        if (!input.trim() || loading) return;
+    if (!input.trim() || loading) return;
 
     const nextMessages: ChatMessage[] = [
       ...messages,
@@ -53,14 +60,11 @@ export const ChatInput = () => {
     <Flex>
       <PromptSelector setTemplateChoice={setTemplateChoice} />
       <Input
-        value={templateChoice ? templateChoice : input}
+        value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Type your message"
       />
-      <Button
-        onClick={handleSend}
-        disabled={loading}
-      >
+      <Button onClick={handleSend} disabled={loading}>
         Send
       </Button>
     </Flex>
