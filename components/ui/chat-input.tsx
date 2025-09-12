@@ -57,7 +57,7 @@ export const ChatInput = ({ messages, setMessages }: ChatInputProps) => {
   };
 
   return (
-    <Flex>
+    <Flex gap={2}>
       <PromptSelector setTemplateChoice={setTemplateChoice} />
       <Input
         value={input}
