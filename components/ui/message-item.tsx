@@ -1,5 +1,7 @@
 import { type ChatMessage } from "../../app/types";
 import { Box, Text } from "@chakra-ui/react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 type MessageItemProps = {
   message: ChatMessage;
@@ -27,7 +29,11 @@ export const MessageItem = ({ message }: MessageItemProps) => {
       <Text fontSize="xs" opacity={0.8} mb={1}>
         {message.role.charAt(0).toUpperCase() + message.role.slice(1)}
       </Text>
-      <Text whiteSpace="pre-wrap">{message.content}</Text>
+      <Box fontSize="sm">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {message.content}
+        </ReactMarkdown>
+      </Box>
     </Box>
   );
 };
