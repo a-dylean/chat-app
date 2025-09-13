@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <Container centerContent maxW="container.lg" px={4}>
       <Flex direction="column" gap={2} w="full" h="100dvh" py={2}>
-        <Heading size="xl" textAlign="center">
+        <Heading as="h1" size="xl" textAlign="center">
           Mistral AI Chat
         </Heading>
         {messages.length > 0 ? (
