@@ -2,9 +2,10 @@
 
 import dynamic from "next/dynamic";
 import { MessageList } from "@/components/ui/message-list";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type ChatMessage } from "./types";
 import { Box, Container, Flex, Heading, ScrollArea } from "@chakra-ui/react";
+import { useStickToBottom } from "@/components/hooks/use-stick-to-bottom";
 
 // Render ChatInput only on the client to avoid hydration mismatches
 const ChatInput = dynamic(
@@ -14,6 +15,15 @@ const ChatInput = dynamic(
 
 export default function Home() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const sticky = useStickToBottom();
+  
+  useEffect(() => {
+    if (messages.length === 0) return;
+    const id = requestAnimationFrame(() => {
+      if (sticky.isAtBottom) sticky.scrollToBottom();
+    });
+    return () => cancelAnimationFrame(id);
+  }, [messages.length, sticky.isAtBottom, sticky.scrollToBottom]);
   return (
     <Container centerContent maxW="container.lg" px={4}>
       <Flex direction="column" gap={2} w="full" h="100dvh" py={2}>
@@ -22,8 +32,8 @@ export default function Home() {
           <>
             <Box flex="1" minH={0} w="full" overflow="hidden">
               <ScrollArea.Root height="100%" variant="hover">
-                <ScrollArea.Viewport>
-                  <ScrollArea.Content spaceY="4" textStyle="sm">
+                <ScrollArea.Viewport ref={sticky.scrollRef}>
+                  <ScrollArea.Content spaceY="4" textStyle="sm" ref={sticky.contentRef}>
                     <MessageList messages={messages} />
                   </ScrollArea.Content>
                 </ScrollArea.Viewport>
