@@ -9,7 +9,7 @@ type PromptSelectorProps = {
 };
 
 export const PromptSelector = ({ setTemplateChoice }: PromptSelectorProps) => {
-    return <Select.Root collection={prompts} >
+    return <Select.Root collection={prompts} width={200}>
         <Select.HiddenSelect />
         <Select.Control>
           <Select.Trigger>

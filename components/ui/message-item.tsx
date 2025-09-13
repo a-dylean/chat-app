@@ -25,7 +25,7 @@ export const MessageItem = ({ message }: MessageItemProps) => {
       boxShadow="sm"
     >
       <Text fontSize="xs" opacity={0.8} mb={1}>
-        {message.role}
+        {message.role.charAt(0).toUpperCase() + message.role.slice(1)}
       </Text>
       <Text whiteSpace="pre-wrap">{message.content}</Text>
     </Box>
