@@ -80,6 +80,12 @@ export const ChatInput = ({ messages, setMessages }: ChatInputProps) => {
         ref={textareaRef}
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            handleSend();
+          }
+        }}
         placeholder="Type your message"
         resize="none"
         rows={1}
@@ -88,7 +94,14 @@ export const ChatInput = ({ messages, setMessages }: ChatInputProps) => {
       />
       <Flex gap={2} mt={2} justify="space-between" align="center">
       <PromptSelector setTemplateChoice={setTemplateChoice} />
-      <Button onClick={handleSend} disabled={loading}>
+      <Button
+        onClick={handleSend}
+        disabled={loading}
+        bg="#FA500F"
+        color="white"
+        _hover={{ bg: "#e0480e" }}
+        _active={{ bg: "#c6410d" }}
+      >
         Send
       </Button>
     </Flex>

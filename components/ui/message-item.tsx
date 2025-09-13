@@ -9,7 +9,7 @@ type MessageItemProps = {
 
 export const MessageItem = ({ message }: MessageItemProps) => {
   const isAssistant = message.role === "assistant";
-  const bg = isAssistant ? "orange.400" : "white";
+  const bg = isAssistant ? "#FFAF00" : "white";
   const color = isAssistant ? "white" : "black";
   const selfAlign = isAssistant ? "flex-start" : "flex-end";
 
