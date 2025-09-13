@@ -61,7 +61,7 @@ export const ChatInput = ({ messages, setMessages }: ChatInputProps) => {
         ...prev,
         { role: "assistant", content: data.content ?? "" },
       ]);
-    } catch (err) {
+    } catch (_err) {
       setMessages((prev) => [
         ...prev,
         {

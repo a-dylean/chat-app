@@ -18,14 +18,15 @@ const ChatInput = dynamic(
 export default function Home() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const sticky = useStickToBottom();
+  const { isAtBottom, scrollToBottom } = sticky;
 
   useEffect(() => {
     if (messages.length === 0) return;
     const id = requestAnimationFrame(() => {
-      if (sticky.isAtBottom) sticky.scrollToBottom();
+      if (isAtBottom) scrollToBottom();
     });
     return () => cancelAnimationFrame(id);
-  }, [messages.length, sticky.isAtBottom, sticky.scrollToBottom]);
+  }, [messages.length, isAtBottom, scrollToBottom]);
   return (
     <Container centerContent maxW="container.lg" px={4}>
       <Flex direction="column" gap={2} w="full" h="100dvh" py={2}>
