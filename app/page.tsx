@@ -1,11 +1,13 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { MessageList } from "@/components/ui/message-list";
 import { useEffect, useState } from "react";
 import { type ChatMessage } from "./types";
 import { Box, Container, Flex, Heading, ScrollArea } from "@chakra-ui/react";
 import { useStickToBottom } from "@/components/hooks/use-stick-to-bottom";
+import appIcon from "@/app/icon.png";
 
 // Render ChatInput only on the client to avoid hydration mismatches
 const ChatInput = dynamic(
@@ -46,9 +48,12 @@ export default function Home() {
             <ChatInput messages={messages} setMessages={setMessages} />
           </>
         ) : (
-          <Flex flex="1" align="center" justify="center" w="full">
+          <>
+            <Box flex="1" minH={0} w="full" display="flex" alignItems="center" justifyContent="center">
+              <Image src={appIcon} alt="Mistral AI Chat" width={128} height={128} priority />
+            </Box>
             <ChatInput messages={messages} setMessages={setMessages} />
-          </Flex>
+          </>
         )}
       </Flex>
     </Container>
