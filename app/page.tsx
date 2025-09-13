@@ -18,7 +18,7 @@ const ChatInput = dynamic(
 export default function Home() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const sticky = useStickToBottom();
-  
+
   useEffect(() => {
     if (messages.length === 0) return;
     const id = requestAnimationFrame(() => {
@@ -29,13 +29,19 @@ export default function Home() {
   return (
     <Container centerContent maxW="container.lg" px={4}>
       <Flex direction="column" gap={2} w="full" h="100dvh" py={2}>
-        <Heading size="xl" textAlign="center">Mistral AI Chat</Heading>
+        <Heading size="xl" textAlign="center">
+          Mistral AI Chat
+        </Heading>
         {messages.length > 0 ? (
           <>
             <Box flex="1" minH={0} w="full" overflow="hidden">
               <ScrollArea.Root height="100%" variant="hover">
                 <ScrollArea.Viewport ref={sticky.scrollRef}>
-                  <ScrollArea.Content spaceY="4" textStyle="sm" ref={sticky.contentRef}>
+                  <ScrollArea.Content
+                    spaceY="4"
+                    textStyle="sm"
+                    ref={sticky.contentRef}
+                  >
                     <MessageList messages={messages} />
                   </ScrollArea.Content>
                 </ScrollArea.Viewport>
@@ -49,8 +55,21 @@ export default function Home() {
           </>
         ) : (
           <>
-            <Box flex="1" minH={0} w="full" display="flex" alignItems="center" justifyContent="center">
-              <Image src={appIcon} alt="Mistral AI Chat" width={128} height={128} priority />
+            <Box
+              flex="1"
+              minH={0}
+              w="full"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Image
+                src={appIcon}
+                alt="Mistral AI Chat"
+                width={128}
+                height={128}
+                priority
+              />
             </Box>
             <ChatInput messages={messages} setMessages={setMessages} />
           </>
