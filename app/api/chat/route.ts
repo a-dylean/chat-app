@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
     const { content } = await completeChat(messages, model);
     return NextResponse.json({ content });
-  } catch (_err) {
+  } catch {
     return NextResponse.json({ error: "Internal error" }, { status: 500 });
   }
 }

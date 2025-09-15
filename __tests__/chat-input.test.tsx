@@ -21,11 +21,13 @@ function Harness() {
 
 describe("ChatInput", () => {
   test("sends on Enter and clears input (success)", async () => {
-    const mockFetch = vi.fn().mockResolvedValue({
-      ok: true,
-      json: async () => ({ content: "Hello from assistant" }),
-    } as any);
-    (global as any).fetch = mockFetch;
+    const mockFetch = vi
+      .fn()
+      .mockResolvedValue({
+        ok: true,
+        json: async () => ({ content: "Hello from assistant" }),
+      } as Pick<Response, "ok" | "json">) as unknown as typeof fetch;
+    vi.stubGlobal("fetch", mockFetch);
 
     render(<Harness />);
     const textarea = screen.getByPlaceholderText(
@@ -40,12 +42,14 @@ describe("ChatInput", () => {
   });
 
   test("shows error assistant message on failure", async () => {
-    const mockFetch = vi.fn().mockResolvedValue({
-      ok: false,
-      status: 500,
-      text: async () => "Fail",
-    } as any);
-    (global as any).fetch = mockFetch;
+    const mockFetch = vi
+      .fn()
+      .mockResolvedValue({
+        ok: false,
+        status: 500,
+        text: async () => "Fail",
+      } as Pick<Response, "ok" | "status" | "text">) as unknown as typeof fetch;
+    vi.stubGlobal("fetch", mockFetch);
 
     render(<Harness />);
     const textarea = screen.getByPlaceholderText("Type your message");
@@ -56,8 +60,8 @@ describe("ChatInput", () => {
   });
 
   test("does not send empty input", async () => {
-    const mockFetch = vi.fn();
-    (global as any).fetch = mockFetch;
+    const mockFetch = vi.fn() as unknown as typeof fetch;
+    vi.stubGlobal("fetch", mockFetch);
 
     render(<Harness />);
     const textarea = screen.getByPlaceholderText("Type your message");

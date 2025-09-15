@@ -26,21 +26,33 @@ if (!('matchMedia' in window) || typeof window.matchMedia !== 'function') {
 }
 
 // Also mirror to globalThis (some libs reference globalThis directly)
-if (!('matchMedia' in globalThis) || typeof (globalThis as any).matchMedia !== 'function') {
-  ;(globalThis as any).matchMedia = (window as any).matchMedia
+if (
+  !('matchMedia' in globalThis) ||
+  typeof (globalThis as typeof globalThis & { matchMedia?: typeof window.matchMedia }).matchMedia !== 'function'
+) {
+  const g = globalThis as typeof globalThis & {
+    matchMedia?: typeof window.matchMedia
+  }
+  g.matchMedia = window.matchMedia
 }
 
 // Mock next/image to plain img element to avoid Next internals
 vi.mock('next/image', () => ({
-  default: (props: any) => {
+  default: (
+    props: ({ src?: string | { src?: string } } & { alt?: string }) &
+      Record<string, unknown>
+  ) => {
     const { src, alt, ...rest } = props || {}
     const resolvedSrc = typeof src === 'string' ? src : src?.src ?? ''
-    return React.createElement('img', { src: resolvedSrc, alt: alt ?? '', ...rest })
+    return React.createElement('img', {
+      src: resolvedSrc,
+      alt: alt ?? '',
+      ...(rest as React.ImgHTMLAttributes<HTMLImageElement>),
+    })
   },
 }))
 
 // Mock next/dynamic so dynamic components don't load chunks during tests
 vi.mock('next/dynamic', () => ({
-  default: (_loader: any) => function DynamicStub() { return null },
+  default: () => function DynamicStub() { return null },
 }))
-

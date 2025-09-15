@@ -7,7 +7,7 @@ vi.mock("@mistralai/mistralai", () => {
         choices: [{ message: { content: "mocked" } }],
       })),
     };
-    constructor(_opts: any) {}
+    constructor() {}
   }
   return { Mistral: MistralMock };
 });
@@ -34,7 +34,7 @@ describe("mistral-client", () => {
 
     const res = await mod.completeChat([
       { role: "user", content: "hi" },
-    ] as any);
+    ]);
     expect(res.content).toBe("mocked");
   });
 });
