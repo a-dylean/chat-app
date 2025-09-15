@@ -11,7 +11,7 @@ export const PromptSelector = ({ setTemplateChoice }: PromptSelectorProps) => {
     <Select.Root collection={prompts} width={300}>
       <Select.HiddenSelect />
       <Select.Control>
-        <Select.Trigger>
+        <Select.Trigger aria-label="Select a prompt">
           <Select.ValueText placeholder="Select prompt" />
         </Select.Trigger>
         <Select.IndicatorGroup>

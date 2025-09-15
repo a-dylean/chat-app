@@ -7,6 +7,20 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['__tests__/setup.ts'],
-    css: true,  
+    css: true,
+    coverage: {
+      provider: 'v8',
+      all: true,
+      reporter: ['text', 'html'],
+      include: [
+        'app/**/*.{ts,tsx}',
+        'components/**/*.{ts,tsx}',
+      ],
+      exclude: [
+        '**/*.d.ts',
+        '.next/**',
+        'node_modules/**',
+      ],
+    },
   },
 })
