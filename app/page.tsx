@@ -27,6 +27,7 @@ export default function Home() {
     });
     return () => cancelAnimationFrame(id);
   }, [messages.length, isAtBottom, scrollToBottom]);
+
   return (
     <Container centerContent maxW="container.lg" px={4}>
       <Flex direction="column" gap={2} w="full" h="100dvh" py={2}>
@@ -66,7 +67,7 @@ export default function Home() {
             >
               <Image
                 src={appIcon}
-                alt="Mistral AI Chat"
+                alt="Mistral AI Chat Icon"
                 width={128}
                 height={128}
                 priority

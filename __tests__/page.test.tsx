@@ -1,28 +1,27 @@
-import { expect, test, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
-import Page from '../app/page'
-import { Provider } from '@/components/ui/provider'
-import * as React from 'react'
- 
-test('Page', () => {
-  render(
-    <Provider>
-      <Page />
-    </Provider>
-  )
-  expect(screen.getByRole('heading', { level: 1, name: 'Mistral AI Chat' })).toBeDefined()
-})
+import { expect, test, vi } from "vitest";
+import { screen } from "@testing-library/react";
+import Page from "../app/page";
+import { render } from "./render";
+import React from "react";
 
-// test('Page shows messages area when it has messages', () => {
-//   vi.spyOn(React, 'useState').mockImplementationOnce(() => [
-//     [{ role: 'user', content: 'hello world' }],
-//     vi.fn(),
-//   ] as any)
-//   render(
-//     <Provider>
-//       <Page />
-//     </Provider>
-//   )
-//   // Icon should not be present, but message content should
-//   expect(screen.queryByAltText('Mistral AI Chat')).toBeNull()
-// })
+test("Page displays Mistral icon when there's no messages", () => {
+  render(<Page />);
+  expect(
+    screen.getByRole("heading", { level: 1, name: "Mistral AI Chat" })
+  ).toBeDefined();
+});
+
+test("Page displays no icon when there're messages", async () => {
+  const messages = [
+    { id: 1, text: "Hello, world!" },
+    { id: 2, text: "How are you?" },
+  ];
+
+  vi.spyOn(React, "useState").mockImplementationOnce(() => [messages, vi.fn()]);
+
+  render(<Page />);
+
+  expect(
+    screen.queryByRole("heading", { level: 1, name: "Mistral AI Chat Icon" })
+  ).toBeNull();
+});

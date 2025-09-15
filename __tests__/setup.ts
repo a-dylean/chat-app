@@ -1,7 +1,7 @@
-// test/setup.ts
+import '@testing-library/jest-dom/vitest'
 import React from 'react'
 import { vi } from 'vitest'
-import '@testing-library/jest-dom/vitest'
+
 
 // Ensure jsdom has matchMedia before anything imports next-themes
 const makeMatchMedia = () =>
@@ -9,7 +9,7 @@ const makeMatchMedia = () =>
     matches: false,
     media: query,
     onchange: null,
-    addListener: vi.fn(),            // deprecated APIs some libs still call
+    addListener: vi.fn(),            
     removeListener: vi.fn(),
     addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
@@ -44,11 +44,3 @@ vi.mock('next/dynamic', () => ({
   default: (_loader: any) => function DynamicStub() { return null },
 }))
 
-// Minimal ResizeObserver polyfill
-class RO {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
-}
-// @ts-expect-error polyfill for tests
-global.ResizeObserver = global.ResizeObserver || RO
