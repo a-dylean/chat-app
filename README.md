@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Mistral AI Chat — Next.js + TypeScript
 
-## Getting Started
+This is a small chat app using Next.js (App Router) and the public Mistral API.
 
-First, run the development server:
+## Tech Stack
+- Next.js 15 (App Router) + React
+- TypeScript
+- Chakra UI
+- Vitest for tests
+- Mistral SDK (`@mistralai/mistralai`)
 
+## Requirements
+- Node.js >= 18.18.0 (or >= 20.x recommended)
+- npm, pnpm, or yarn
+- A Mistral API key (set `MISTRAL_API_KEY`)
+
+## Quickstart
+1) Install dependencies
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2) Configure environment
+Create a `.env` at the project root with:
+```bash
+MISTRAL_API_KEY=your_api_key_here
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3) Run the app
+```bash
+npm run dev
+```
+Open http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4) Run tests
+```bash
+npm test
+```
 
-## Learn More
+Notes:
+- Ensure your Node.js version satisfies Next.js requirements (>= 18.18.0).
 
-To learn more about Next.js, take a look at the following resources:
+## Usage
+- Type a message and press Enter (or click Send) to get an assistant response.
+- Messages persist in memory while the page is open.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## API
+The app exposes a typed server route at `POST /api/chat`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Request body
+```json
+{
+  "messages": [
+    { "role": "user", "content": "hi" }
+  ],
+}
+```
 
-## Deploy on Vercel
+Response body
+```json
+{ "content": "...assistant reply..." }
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Example curl
+```bash
+curl -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"Hello"}]}'
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

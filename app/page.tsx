@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { type ChatMessage } from "./types";
 import { Box, Container, Flex, Heading, ScrollArea } from "@chakra-ui/react";
 import { useStickToBottom } from "@/components/hooks/use-stick-to-bottom";
-import appIcon from "@/app/icon.png";
 
 // Render ChatInput only on the client to avoid hydration mismatches
 const ChatInput = dynamic(
@@ -66,11 +65,12 @@ export default function Home() {
               justifyContent="center"
             >
               <Image
-                src={appIcon}
+                src="/icon.png"
                 alt="Mistral AI Chat Icon"
                 width={128}
                 height={128}
                 priority
+                unoptimized
               />
             </Box>
             <ChatInput messages={messages} setMessages={setMessages} />
