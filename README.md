@@ -1,13 +1,14 @@
-## Mistral AI Chat — Next.js + TypeScript
+## Mistral AI Chat
 
-This is a small chat app using Next.js (App Router) and the public Mistral API.
+A small chat application using Next.js and public Mistral API.
+User experience is enhanced with predefined prompt selection. This feature allows users to quickly choose from a list of options, such as text summarization, translation, or code explanation to reduce manual input and get better response.
+Deployed with Vercel [here](https://chat-app-dun-phi.vercel.app/)
 
 ## Tech Stack
-- Next.js 15 (App Router) + React
+- Next.js 15 + React
 - TypeScript
 - Chakra UI
-- Vitest for tests
-- Mistral SDK (`@mistralai/mistralai`)
+- Vitest
 
 ## Requirements
 - Node.js >= 18.18.0 (or >= 20.x recommended)
@@ -20,10 +21,9 @@ This is a small chat app using Next.js (App Router) and the public Mistral API.
 npm install
 ```
 
-2) Configure environment
-Create a `.env` at the project root with:
+2) Create a `.env` file at the project root with:
 ```bash
-MISTRAL_API_KEY=your_api_key_here
+MISTRAL_API_KEY=your_api_key
 ```
 
 3) Run the app
@@ -39,10 +39,6 @@ npm test
 
 Notes:
 - Ensure your Node.js version satisfies Next.js requirements (>= 18.18.0).
-
-## Usage
-- Type a message and press Enter (or click Send) to get an assistant response.
-- Messages persist in memory while the page is open.
 
 ## API
 The app exposes a typed server route at `POST /api/chat`.
